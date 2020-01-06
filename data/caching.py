@@ -7,7 +7,7 @@ import time
 
 def cache_download(backend: str):
     def cache(func):
-        def wrapper(self, ticker: str, freq: str,  start_str, end_str, format: str = None):
+        def wrapper(self, ticker: str, freq: str, start_str, end_str, format: str = None):
             base, symbol = ticker.split('/')
             directory = 'data/.historical_data/{}/{}'.format(backend, base)
             path = pathlib.Path(directory)

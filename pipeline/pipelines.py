@@ -3,6 +3,9 @@ import pandas as pd
 
 
 class FactorPipeline(Pipeline):
+    """
+    Create a pipeline from a factor
+    """
     def __init__(self, factor):
         self.factor = factor
 
