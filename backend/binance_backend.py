@@ -36,20 +36,3 @@ class BinanceBackend(Backend):
                  format: str = None) -> pd.DataFrame:
         data = self.historical_ohlcv(ticker, start, end, timeframe=timeframe)
         return data
-
-    def _download(self):
-        pass
-
-    def get_account_status(self):
-        account = self.client.get_account()
-        balances = pd.DataFrame(account['balances'])
-        balances[['free', 'locked']] = balances[['free', 'locked']].astype(float)
-        balances['update_time'] = pd.to_datetime(int(account['updateTime']), unit='ms')
-        return balances
-
-    def get_symbol_info(self, symbol):
-        info = self.client.get_symbol_info(symbol=symbol)
-        cols = ['symbol', 'status', 'baseAsset', 'baseAssetPrecision', 'quoteAsset', 'quotePrecision',
-                'baseCommissionPrecision', 'quoteCommissionPrecision', 'icebergAllowed', 'ocoAllowed',
-                'quoteOrderQtyMarketAllowed', 'isSpotTradingAllowed', 'isMarginTradingAllowed']
-        return pd.DataFrame([info])[cols]
