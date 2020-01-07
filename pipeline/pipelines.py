@@ -45,7 +45,7 @@ class UnionPipeline(Pipeline):
       return {self.name: union_dict} 
 
     def step(self, series: pd.Series) -> Dict[str, dict]:
-      dicts = [p.step(df) for p in self._pipelines]
+      dicts = [p.step(series) for p in self._pipelines]
       union_dict = _union_dicts(dicts)
       return {self.name: union_dict} 
 
@@ -56,11 +56,9 @@ class MultiFactorPipeline(Pipeline):
         self._factors = factors
 
     def apply(self, df: pd.DataFrame) -> Dict[str, dict]:
-        dicts = [{factor.name: factor.apply(df)} for factor in self._factors] 
-        union_dict = _union_dicts(dicts)
+        union_dict = {factor.name: factor.apply(df) for factor in self._factors}
         return {self.name: union_dict}
 
     def step(self, series: pd.Series) -> Dict[str, dict]:
-        dicts = [{factor.name: factor.step(df)} for factor in self._factors] 
-        union_dict = _union_dicts(dicts)
+        union_dict = {factor.name: factor.step(series) for factor in self._factors}
         return {self.name: union_dict}
