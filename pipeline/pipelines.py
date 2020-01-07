@@ -1,6 +1,7 @@
 from .base import Pipeline
 import pandas as pd
 from typing import List, Dict
+from utils.pandas_utils import _concat, _concat_series, _add_parent_level
 
 
 def _union_dicts(dicts: List[dict]) -> dict:
@@ -58,6 +59,7 @@ class UnionPipeline(Pipeline):
       return_dict = {self.name: union_dict} 
       if not to_pandas:
         return return_dict
+    
 
 
 class MultiFactorPipeline(Pipeline):
@@ -71,6 +73,8 @@ class MultiFactorPipeline(Pipeline):
         return_dict = {self.name: union_dict}
         if not to_pandas:
           return return_dict
+        else:
+          pass
 
     def step(self, series: pd.Series, to_pandas: bool = False) -> Dict[str, dict]:
         dicts = [{factor.name: factor.step(series)} for factor in self._factors] 
