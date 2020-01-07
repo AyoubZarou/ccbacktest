@@ -10,3 +10,8 @@ class Pipeline(abc.ABC, object):
     @abc.abstractmethod
     def step(self, series: pd.Series) -> pd.Series:
         pass
+    
+    @abc.abstractmethod
+    @property
+    def name(self):
+      return self._name
