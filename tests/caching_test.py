@@ -1,5 +1,5 @@
 import unittest
-from ..data.caching import get_diff_and_update
+from ccbacktest.data.caching import get_diff_and_update
 
 
 class DiffAndUpdateTest(unittest.TestCase):
