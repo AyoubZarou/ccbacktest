@@ -2,6 +2,7 @@ from abc import ABC
 import pandas as pd
 from .base import BaseFactor
 from collections import defaultdict
+from utils.pandas_utils import _concat, _concat_series, _add_parent_level
 
 
 class Factor(BaseFactor, ABC):
