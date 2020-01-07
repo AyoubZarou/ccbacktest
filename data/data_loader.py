@@ -38,16 +38,16 @@ class DataLoader(object):
     @train_end.setter
     def train_end(self, train_end):
         train_end = self._parse_time(train_end)
-        self.train_end = train_end
+        self._train_end = train_end
 
     @property
     def test_end(self):
         return self._test_end
 
     @test_end.setter
-    def train_end(self, test_end):
+    def test_end(self, test_end):
         test_end = self._parse_time(test_end)
-        self.test_end = test_end
+        self._test_end = test_end
 
     def train_data(self):
         data = self.backend.download(self._symbol, self._timeframe, self._start, self.train_end)
