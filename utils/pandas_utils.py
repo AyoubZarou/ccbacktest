@@ -1,4 +1,5 @@
 import pandas as pd 
+import numpy as np
 
 def _add_n_levels(index, n):
     """ Add n empty levels to a multiindex
@@ -24,3 +25,16 @@ def _concat(dfs):
             df.columns = _add_n_levels(df.columns, max_levels - nlevels)
         to_concat.append(df)
     return pd.concat(to_concat, axis=1)
+
+def _concat_series(series_list):
+    if len(np.unique([series.name for series in series_list])) != 1:
+        raise ValueError('Series should have the same name')
+    levels = [series.index.nlevels for series in series_list]
+    max_levels = max(levels)
+    to_concat = []
+    for series in series_list:
+        nlevels = series.index.nlevels
+        if nlevels < max_levels:
+            series.index = _add_n_levels(series.index, max_levels - nlevels)
+        to_concat.append(series)
+    return pd.concat(to_concat)
