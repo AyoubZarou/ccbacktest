@@ -11,6 +11,14 @@ def _add_n_levels(index, n):
         new_index = [list(old) + [''] * n for old in index]
     return pd.MultiIndex.from_tuples(new_index)
 
+def _add_parent_level(index, name):
+    nlevels = index.nlevels
+    if nlevels == 1:
+        new_index = [[name, i] for i in index]
+    else:
+        new_index = [[name] + list(old) for old in index]
+    return pd.MultiIndex.from_tuples(new_index)    
+
 def _concat(dfs):
     """ Concatenate a list of data_frames while creating empty columns levels for 
     data frame with less levels.
