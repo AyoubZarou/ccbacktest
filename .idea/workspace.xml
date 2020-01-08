@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5edaf62-158f-4fb2-866f-e39da24e3ba0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ccbacktest/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ccbacktest/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/ZAROU.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/ZAROU.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ccbacktest/backend/binance_backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/ccbacktest/backend/binance_backend.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ccbacktest/factors/factors.py" beforeDir="false" afterPath="$PROJECT_DIR$/ccbacktest/factors/factors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ccbacktest/pipeline/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/ccbacktest/pipeline/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ccbacktest/pipeline/pipelines.py" beforeDir="false" afterPath="$PROJECT_DIR$/ccbacktest/pipeline/pipelines.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ccbacktest/utils/pandas_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/ccbacktest/utils/pandas_utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/caching_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/caching_test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,6 +33,11 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ZAROU\ccbacktest" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -59,7 +69,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

@@ -2,15 +2,16 @@ import abc
 import pandas as pd
 
 
-class Pipeline(abc.ABC, object):
+class BaseFactor(abc.ABC):
     @abc.abstractmethod
     def apply(self, df: pd.DataFrame) -> pd.DataFrame:
         pass
 
     @abc.abstractmethod
-    def step(self, series: pd.Series) -> pd.Series:
+    def func(self, df: pd.DataFrame) -> pd.Series:
         pass
 
-    @property
-    def name(self):
-        return self._name
+    @abc.abstractmethod
+    def step(self, series: pd.Series):
+        pass
+
