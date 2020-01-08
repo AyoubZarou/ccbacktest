@@ -44,22 +44,29 @@ class UnionPipeline(Pipeline):
     """
      A class created to represent the union of different pipelines   
     """
-    def __init__(self, pipelines: list, name: str):
+    def __init__(self, pipelines: List[Pipeline], name: str):
         self._pipelines = pipelines
         self._name = name
 
     def apply(self, df: pd.DataFrame, to_pandas: bool = False) -> Dict[str, dict]:
-      dicts = [p.apply(df) for p in self._pipelines]
+      dicts = [p.apply(df, to_pandas=to_pandas) for p in self._pipelines]
       union_dict = _union_dicts(dicts)
-      return {self.name: union_dict} 
+      if not to_pandas:
+        return {self.name: union_dict}
+      else:
+        return_df = _concat(dicts)
+        return_df = _add_parent_level(return_df, name=self.name)
+        return return_df
+        
 
     def step(self, series: pd.Series, to_pandas: bool = False) -> Dict[str, dict]:
-      dicts = [p.step(series) for p in self._pipelines]
+      dicts = [p.step(series, to_pandas=to_pandas) for p in self._pipelines]
       union_dict = _union_dicts(dicts)
       return_dict = {self.name: union_dict} 
       if not to_pandas:
         return return_dict
-    
+      else:
+        pass
 
 
 class MultiFactorPipeline(Pipeline):
