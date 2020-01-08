@@ -229,7 +229,7 @@ class LambdaFactor(Factor):
     __slots__ = ['name', '_func']
     """ A class used to create a factor from a function, a history depth and a name, the 
     rest of the factor operation is inherited from the  Factor class, it's used mainly to create arithmetic operations
-    between other factors 
+    between other factors. 
     """
     def __init__(self, func, name, periods):
         super(Factor, self).__init__()

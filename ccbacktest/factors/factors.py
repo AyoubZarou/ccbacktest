@@ -81,7 +81,7 @@ class Factor(BaseFactor, ABC):
         df = self.history['data_history']
         updated = df.append(series)
         value = self.func(updated).iat[-1]
-        to_return = pd.Series([value], name=self.name)
+        to_return = pd.Series([value], name=series.name, index=[self.name])
         self.update_history(series, to_return)
         return series
 
@@ -229,7 +229,7 @@ class LambdaFactor(Factor):
     __slots__ = ['name', '_func']
     """ A class used to create a factor from a function, a history depth and a name, the 
     rest of the factor operation is inherited from the  Factor class, it's used mainly to create arithmetic operations
-    between other factors 
+    between other factors.
     """
     def __init__(self, func, name, periods):
         super(Factor, self).__init__()
@@ -263,7 +263,7 @@ class MovingAverage(Factor):
         s = factor.iat[-1]
         r = df[self._on].iat[-self.periods]
         value = (self.periods * s - r + series[self._on]) / self.periods
-        to_return = pd.Series([value], index=self.name, name=series.name)
+        to_return = pd.Series([value], index=[self.name], name=series.name)
         self.update_history(series, to_return)
         return to_return
 

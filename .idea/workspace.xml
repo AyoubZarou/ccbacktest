@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5edaf62-158f-4fb2-866f-e39da24e3ba0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/ZAROU.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/ZAROU.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/ccbacktest/backend/binance_backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/ccbacktest/backend/binance_backend.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/ccbacktest/data/data_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/ccbacktest/data/data_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ccbacktest/backend/binance_backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/ccbacktest/backend/binance_backend.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ccbacktest/data/data_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/ccbacktest/data/data_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/ccbacktest-0.0.0-py3.7.egg" beforeDir="false" afterPath="$PROJECT_DIR$/dist/ccbacktest-0.0.0-py3.7.egg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/ccbacktest/factors/factors.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/ccbacktest/factors/factors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ccbacktest/factors/factors.py" beforeDir="false" afterPath="$PROJECT_DIR$/ccbacktest/factors/factors.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
