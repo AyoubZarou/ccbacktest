@@ -58,7 +58,7 @@ class Factor(BaseFactor, ABC):
         self.history['data_history'] = self.history['data_history'].append(series).iloc[1:]
         self.history['factor_history'] = self.history['factor_history'].append(new_value).iloc[1:]
 
-    def apply(self, df: pd.DataFrame) -> pd.Series:
+    def apply(self, df: pd.DataFrame) -> pd.DataFrame:
         """ apply the factor to a historical dataset at once
         :arg df: historical data to which we apply the factor
         :return factor values for each timestamp
@@ -68,6 +68,8 @@ class Factor(BaseFactor, ABC):
         if self.periods is not None:
             self.history = {"data_history": df.iloc[-self.periods:],
                             'factor_history': values.iloc[-self.periods:]}
+        if not isinstance(values, pd.DataFrame):
+            values = values.to_frame()
         return values
 
     def step(self, series: pd.Series) -> pd.Series:
