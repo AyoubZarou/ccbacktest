@@ -23,21 +23,13 @@ class FactorPipeline(Pipeline):
         self.factor = factor
         self._name = self.factor.name
 
-    def apply(self, df, to_pandas: bool = False) -> Dict[str, dict]:
-        factor = self.factor
-        return_dict = {self.name: factor.apply(df)}
-        if not to_pandas:
-          return return_dict
-        else:
-          pass
+    def apply(self, df) -> Dict[str, dict]:
+        return_df = self.factor.apply(df)
+        return return_df
 
-    def step(self, series: pd.Series, to_pandas: bool = False) -> Dict[str, dict]:
-        factor = self.factor
-        return_dict = {self.name: factor.step(series)}
-        if not to_pandas:
-          return return_dict
-        else:
-          pass
+    def step(self, series: pd.Series) -> Dict[str, dict]:
+        return_series = self.factor.step(series)
+        return return_series
 
 
 class UnionPipeline(Pipeline):
@@ -48,25 +40,18 @@ class UnionPipeline(Pipeline):
         self._pipelines = pipelines
         self._name = name
 
-    def apply(self, df: pd.DataFrame, to_pandas: bool = False) -> Dict[str, dict]:
-      dicts = [p.apply(df, to_pandas=to_pandas) for p in self._pipelines]
-      union_dict = _union_dicts(dicts)
-      if not to_pandas:
-        return {self.name: union_dict}
-      else:
-        return_df = _concat(dicts)
-        return_df = _add_parent_level(return_df, name=self.name)
-        return return_df
+    def apply(self, df: pd.DataFrame) -> pd.DataFrame:
+      dfs = [p.apply(df) for p in self._pipelines]
+      return_df = _concat(dfs)
+      return_df.columns = _add_parent_level(return_df.columns, name=self.name)
+      return return_df
         
 
-    def step(self, series: pd.Series, to_pandas: bool = False) -> Dict[str, dict]:
-      dicts = [p.step(series, to_pandas=to_pandas) for p in self._pipelines]
-      union_dict = _union_dicts(dicts)
-      return_dict = {self.name: union_dict} 
-      if not to_pandas:
-        return return_dict
-      else:
-        pass
+    def step(self, series: pd.Series) -> pd.Series:
+      all_series = [p.step(series) for p in self._pipelines]
+      return_series = _concat_series(all_series)
+      return_series.index = _add_parent_level(return_series.index, name=self.name)
+      return return_series
 
 
 class MultiFactorPipeline(Pipeline):
@@ -74,18 +59,15 @@ class MultiFactorPipeline(Pipeline):
         self._name = name
         self._factors = factors
 
-    def apply(self, df: pd.DataFrame, to_pandas: bool = False) -> Dict[str, dict]:
-        dicts = [{factor.name: factor.apply(df)} for factor in self._factors] 
-        union_dict = _union_dicts(dicts)
-        return_dict = {self.name: union_dict}
-        if not to_pandas:
-          return return_dict
-        else:
-          pass
+    def apply(self, df: pd.DataFrame) -> pd.DataFrame:
+      dfs = [f.apply(df) for f in self._factors]
+      return_df = _concat(dfs)
+      return_df.columns = _add_parent_level(return_df.columns, name=self.name)
+      return return_df
+        
 
-    def step(self, series: pd.Series, to_pandas: bool = False) -> Dict[str, dict]:
-        dicts = [{factor.name: factor.step(series)} for factor in self._factors] 
-        union_dict = _union_dicts(dicts)
-        return_dict = {self.name: union_dict}
-        if not to_pandas:
-          return return_dict
+    def step(self, series: pd.Series) -> pd.Series:
+      all_series = [f.step(series) for f in self._factors]
+      return_series = _concat_series(all_series)
+      return_series.index = _add_parent_level(return_series.index, name=self.name)
+      return return_series
