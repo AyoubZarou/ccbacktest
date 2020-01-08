@@ -31,8 +31,18 @@ class BinanceBackend(Backend):
         pass
 
     @cache_download("binance")
+    def _download(self, ticker: str, timeframe: str,
+                  start: pd.datetime, end: pd.datetime = None,
+                  format: str = None) -> pd.DataFrame:
+
+        data = self.historical_ohlcv(ticker, start, end, timeframe=timeframe)
+        return data
+
     def download(self, ticker: str, timeframe: str,
                  start: pd.datetime, end: pd.datetime = None,
                  format: str = None) -> pd.DataFrame:
-        data = self.historical_ohlcv(ticker, start, end, timeframe=timeframe)
+
+        data = self._download(ticker, timeframe, start, end, format)
+        data['open_time'] = pd.to_datetime(data['open_time'], unit='ms')
+        data.set_index('open_time', inplace=True)
         return data

@@ -1,9 +1,10 @@
 import pandas as pd
+from ccbacktest.utils.pandas_utils import concat_dataframes, concat_series
 
 
 class DataLoader(object):
     def __init__(self, backend, timeframe='1h', start=None, train_end=None,
-                 test_end=None, pipeline=None, format=None, window=30, symbol=None):
+                 test_end=None, pipeline=None, format=None, window=30, symbol=None, join_ohlcv=True):
         self._backend = backend
         self._pipeline = pipeline
         self._train_end = train_end
@@ -14,6 +15,7 @@ class DataLoader(object):
         self._window = window
         self._symbol = symbol
         self._history_data = None
+        self._join_ohlcv = join_ohlcv
 
     @property
     def backend(self):
@@ -52,7 +54,11 @@ class DataLoader(object):
     def train_data(self):
         data = self.backend.download(self._symbol, self._timeframe, self._start, self.train_end)
         if self.pipeline is not None:
-            data = self.pipeline.apply(data)
+            data_apply = self.pipeline.apply(data)
+            if self._join_ohlcv:
+                data = concat_dataframes([data, data_apply])
+            else:
+                data = data_apply
         self._history_data = data.iloc[-self._window:, :].copy()
         return data
 
@@ -62,6 +68,8 @@ class DataLoader(object):
         data = self.backend.download(self._symbol, self._timeframe, self.train_end, self.test_end)
         for i in range(data.shape[0]):
             series = self.step(data.iloc[i, :])
+            if self._join_ohlcv:
+                series = concat_series([data.iloc[i, :], series])
             self._update_history(series)
             yield self._history_data.copy()
 
