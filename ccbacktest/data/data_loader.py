@@ -1,6 +1,9 @@
 import pandas as pd
 from ccbacktest.utils.pandas_utils import concat_dataframes, concat_series
 
+def _time_frame_to_ms(t):
+    tf = pd.to_timedelta(t)
+    return tf.value // 1000_000
 
 class DataLoader(object):
     def __init__(self, backend, timeframe='1h', start=None, train_end=None,
@@ -16,6 +19,7 @@ class DataLoader(object):
         self._symbol = symbol
         self._history_data = None
         self._join_ohlcv = join_ohlcv
+        self._ms_step = _time_frame_to_ms(self._timeframe)
 
     @property
     def backend(self):
